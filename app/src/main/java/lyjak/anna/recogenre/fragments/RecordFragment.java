@@ -1,5 +1,6 @@
 package lyjak.anna.recogenre.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import com.skyfishjy.library.RippleBackground;
 import java.io.IOException;
 
 import lyjak.anna.recogenre.R;
+import lyjak.anna.recogenre.ResultActivity;
 import lyjak.anna.recogenre.recording.RecordingController;
 
 public class RecordFragment extends Fragment {
@@ -59,6 +61,7 @@ public class RecordFragment extends Fragment {
                     if(recordingController != null && recordingController.isRecording()){
                         try {
                             recordingController.stop();
+                            startNewActivity(ResultActivity.class);
 //                            recordingController.play(getView());
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -68,6 +71,13 @@ public class RecordFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void startNewActivity(Class<?> activityClass){
+        Intent intent = new Intent(getActivity(), activityClass);
+        //TODO put result info to display
+//        intent.putExtra("RESULT", "Rock");
+        startActivity(intent);
     }
 
 }
