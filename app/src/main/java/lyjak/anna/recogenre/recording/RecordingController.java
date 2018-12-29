@@ -23,6 +23,7 @@ public class RecordingController {
 
     private final MediaRecorder audioRecorder = new MediaRecorder();
     private final String path;
+    private String fileName;
     private Boolean isRecording;
 
     /**
@@ -35,11 +36,12 @@ public class RecordingController {
     }
 
     private String sanitizePath(String path) {
-        if (!path.startsWith("/")) {
-            path = "/" + path;
-        }
         if (!path.contains(".")) {
             path += ".3gp";
+        }
+        fileName = path;
+        if (!path.startsWith("/")) {
+            path = "/" + path;
         }
         String directory = Environment.getExternalStorageDirectory().getAbsolutePath() + "/RecoGenre";
         return directory + path;
@@ -94,6 +96,7 @@ public class RecordingController {
         File directory = new File(path).getParentFile();
         Log.i(TAG, "Ścieżka: " + directory.getPath());
         if(!directory.exists()){
+            //noinspection ResultOfMethodCallIgnored
             directory.mkdirs();
         }
         if (!directory.exists() && !directory.mkdirs()) {
@@ -113,7 +116,7 @@ public class RecordingController {
     /**
      * Stops a recording that has been previously started.
      */
-    public void stop() throws IOException {
+    public void stop() {
         audioRecorder.stop();
         audioRecorder.release();
         Log.e(TAG, "STOP RECORD");
@@ -123,7 +126,8 @@ public class RecordingController {
     /**
      * Method needed for testing - plays record
      */
-    public void play(View view) throws IllegalArgumentException, SecurityException, IllegalStateException, IOException {
+    public void play(View view) throws IllegalArgumentException, SecurityException,
+            IllegalStateException, IOException {
         MediaPlayer m = new MediaPlayer();
         m.setDataSource(path);
         m.prepare();
@@ -133,5 +137,13 @@ public class RecordingController {
 
     public Boolean isRecording() {
         return isRecording;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 }

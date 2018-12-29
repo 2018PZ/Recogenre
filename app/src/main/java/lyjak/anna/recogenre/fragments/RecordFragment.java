@@ -1,9 +1,12 @@
 package lyjak.anna.recogenre.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,7 @@ import com.skyfishjy.library.RippleBackground;
 import java.io.IOException;
 
 import lyjak.anna.recogenre.R;
-import lyjak.anna.recogenre.ResultActivity;
+import lyjak.anna.recogenre.service.ConnectionController;
 import lyjak.anna.recogenre.recording.RecordingController;
 
 public class RecordFragment extends Fragment {
@@ -28,8 +31,7 @@ public class RecordFragment extends Fragment {
     }
 
     public static RecordFragment newInstance() {
-        RecordFragment fragment = new RecordFragment();
-        return fragment;
+        return new RecordFragment();
     }
 
 
@@ -59,18 +61,35 @@ public class RecordFragment extends Fragment {
                     animationOn = false;
                     rippleBackground.stopRippleAnimation();
                     if(recordingController != null && recordingController.isRecording()){
-                        try {
-                            recordingController.stop();
-                            startNewActivity(ResultActivity.class);
+                        recordingController.stop();
+                        String filePath = recordingController.getPath();
+                        String fileName = recordingController.getFileName();
+                        Log.i("TAG", "File created");
+                        Log.i("TAG", "Start sending file "+ fileName);
+                        sendFileToServer(filePath, fileName);
+                        //TODO
+//                            Log.i("TAG", "Open new activity");
+//                            startNewActivity(ResultActivity.class);
+
 //                            recordingController.play(getView());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }
             }
         });
         return view;
+    }
+
+    private void sendFileToServer(final String filePath, final String fileName) {
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> asyncTask =
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        ConnectionController controller = new ConnectionController();
+                        controller.executeRemoteConnection(filePath, fileName);
+                        return null;
+                    }
+                };
+        asyncTask.execute();
     }
 
     private void startNewActivity(Class<?> activityClass){
