@@ -11,14 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.skyfishjy.library.RippleBackground;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 import lyjak.anna.recogenre.R;
-import lyjak.anna.recogenre.service.ConnectionController;
+import lyjak.anna.recogenre.activities.ResultActivity;
+import lyjak.anna.recogenre.model.ClassificationResult;
 import lyjak.anna.recogenre.recording.RecordingController;
+import lyjak.anna.recogenre.service.GetClassificationService;
+import lyjak.anna.recogenre.service.RetrofitClientInstance;
+import lyjak.anna.recogenre.service.SSHConnectionService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RecordFragment extends Fragment {
 
@@ -66,11 +76,7 @@ public class RecordFragment extends Fragment {
                         String fileName = recordingController.getFileName();
                         Log.i("TAG", "File created");
                         Log.i("TAG", "Start sending file "+ fileName);
-                        sendFileToServer(filePath, fileName);
-                        //TODO
-//                            Log.i("TAG", "Open new activity");
-//                            startNewActivity(ResultActivity.class);
-
+                        classifySong(filePath, fileName);
 //                            recordingController.play(getView());
                     }
                 }
@@ -79,23 +85,59 @@ public class RecordFragment extends Fragment {
         return view;
     }
 
-    private void sendFileToServer(final String filePath, final String fileName) {
+    private void classifySong(final String filePath, final String fileName) {
         @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> asyncTask =
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... params) {
-                        ConnectionController controller = new ConnectionController();
+                        SSHConnectionService controller = new SSHConnectionService();
                         controller.executeRemoteConnection(filePath, fileName);
                         return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        requestResult();
                     }
                 };
         asyncTask.execute();
     }
 
+    private void requestResult() {
+        /*Create handle for the RetrofitInstance interface*/
+        GetClassificationService service = RetrofitClientInstance.getRetrofitInstance().
+                create(GetClassificationService.class);
+        Call<List<ClassificationResult>> call = service.getClassificationResult();
+        call.enqueue(new Callback<List<ClassificationResult>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<ClassificationResult>> call,
+                                   @NonNull Response<List<ClassificationResult>> response) {
+//                progressDoalog.dismiss();
+                List<ClassificationResult> body = response.body();
+                Log.i("ConnectionController",
+                        "Response size: " + Objects.requireNonNull(body).size());
+                ResultActivity.LIST_OF_RESULTS = body;
+                startNewActivity(ResultActivity.class);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<ClassificationResult>> call,
+                                  @NonNull Throwable t) {
+//                progressDoalog.dismiss();
+                Toast.makeText(getContext(), "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * Starts new activity
+     * @param activityClass - activity to start intent
+     */
+    @SuppressWarnings("SameParameterValue")
     private void startNewActivity(Class<?> activityClass){
         Intent intent = new Intent(getActivity(), activityClass);
-        //TODO put result info to display
-//        intent.putExtra("RESULT", "Rock");
         startActivity(intent);
     }
 

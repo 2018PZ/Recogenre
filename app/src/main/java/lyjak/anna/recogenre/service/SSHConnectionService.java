@@ -16,14 +16,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ConnectionController {
+public class SSHConnectionService {
 
-    private static final String TAG = ConnectionController.class.getName();
+    private static final String TAG = SSHConnectionService.class.getName();
 
     private static final Credentials cred = Credentials.getInstance();
-    private static final String dirProject = "recoGenre-server";
+    private static final String dirProject = "/recoGenre-server";
     private static final String dirMusic = "music";
-    private static final String projectPath = "/home/student/" + dirProject;
 
     /**
      * Method creates connection to server and sends music file to it.
@@ -31,10 +30,10 @@ public class ConnectionController {
      * @param fileName - name of sending file
      */
     public void executeRemoteConnection(String fileToSendPath, String fileName) {
-        int port = Integer.parseInt(cred.PORT);
+//        int port = Integer.parseInt(cred.PORT);
         try{
             JSch jsch = new JSch();
-            Session session = jsch.getSession(cred.USER, cred.ADDRESS, port);
+            Session session = jsch.getSession(cred.USER, cred.ADDRESS); //, port);
             session.setPassword(cred.PASSWORD);
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
@@ -43,61 +42,14 @@ public class ConnectionController {
             channel.connect();
             ChannelSftp sftpChannel = (ChannelSftp) channel;
 
+            sftpChannel.cd(dirProject + "/" + dirMusic);
             String currentDir = getActualPath(sftpChannel);
-            Boolean result = createDirIfNotExist(currentDir, sftpChannel);
-
-            if (result) {
-                sftpChannel.cd(currentDir + "/" + dirMusic);
-                currentDir = getActualPath(sftpChannel);
-                Log.i(TAG, "Cd -> " + currentDir);
-                sendFile(sftpChannel, fileToSendPath, fileName, currentDir);
-                createAndSendTxtFile(sftpChannel, fileName);
-                //TODO implement "python3 " + dirProject + "/quick_test.py"
-                //TODO download result.txt
-                //TODO display result
-            }
+            Log.i(TAG, "Cd -> " + currentDir);
+            sendFile(sftpChannel, fileToSendPath, fileName, currentDir);
+            createAndSendTxtFile(sftpChannel, fileName);
 
             sftpChannel.exit();
             channel.disconnect();
-
-//            Log.i(TAG, "First channel disconnect!");
-//            ChannelExec channelExec = (ChannelExec)
-//                    session.openChannel("exec");
-////            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-////            channelExec.setOutputStream(baos);
-////            channelExec.setCommand("python3 " + dirProject + "/quick_test.py | sed -n 5p | xargs echo -n");
-//            channelExec.setCommand("ls | sed -n 5p | xargs echo -n");
-//            channelExec.connect();
-//            Log.i(TAG, "Second channel connected!");
-////            channelExec.start();
-////            Log.i(TAG, "Second channel started!");
-////            channelExec.run();
-////            Log.i(TAG, "Second channel runned!");
-//            Thread.sleep(3000);
-//            Log.i(TAG, "Sleep end!");
-////            try{Thread.sleep(1000);}catch(Exception ee){}
-//            final ByteArrayOutputStream baos = (ByteArrayOutputStream) channelExec.getOutputStream();
-//            String aaaa = new String(baos.toByteArray());
-//            Log.i(TAG, "Byte: " + aaaa);
-////            byte[] tmp=new byte[1024];
-////            while(true){
-////                while(in.available()>0){
-////                    int i=in.read(tmp, 0, 1024);
-////                    if(i<0)break;
-////                    System.out.print(new String(tmp, 0, i));
-////                }
-////                if(channel.isClosed()){
-////                    if(in.available()>0) continue;
-////                    System.out.println("exit-status: "+channel.getExitStatus());
-////                    break;
-////                }
-////                try{Thread.sleep(1000);}catch(Exception ee){}
-////            }
-//
-//            channelExec.disconnect();
-//
-//            Log.i(TAG, "Second channel disconnect!");
-
             session.disconnect();
             Log.i(TAG, "Session disconnect!");
         }
@@ -188,7 +140,7 @@ public class ConnectionController {
             Log.i(TAG, "Content added");
 
             FileInputStream stream = new FileInputStream(file);
-            sftpChannel.put(stream, projectPath + "/list_example.txt");
+            sftpChannel.put(stream, dirProject + "/list_example.txt");
             Log.i(TAG, "Temp file sent");
         } catch (IOException e) {
             Log.e(TAG, "File write failed: " + e.toString());

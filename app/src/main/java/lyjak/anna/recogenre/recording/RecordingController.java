@@ -15,7 +15,7 @@ import android.view.View;
 import java.io.File;
 import java.io.IOException;
 
-import lyjak.anna.recogenre.MainActivity;
+import lyjak.anna.recogenre.activities.MainActivity;
 
 public class RecordingController {
 
@@ -35,6 +35,11 @@ public class RecordingController {
         this.isRecording = false;
     }
 
+    /**
+     * Methods create path to music file
+     * @param path - file name
+     * @return created path
+     */
     private String sanitizePath(String path) {
         if (!path.contains(".")) {
             path += ".3gp";
@@ -47,6 +52,12 @@ public class RecordingController {
         return directory + path;
     }
 
+    /**
+     * Records new song
+     * @param context - app context
+     * @param activity - app actual activity (MainActivity)
+     * @throws IOException - exception throw if record fails
+     */
     public void startRecording(Context context, Activity activity) throws IOException {
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.RECORD_AUDIO)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -63,6 +74,10 @@ public class RecordingController {
         }
     }
 
+    /**
+     * Check if write permission granded - or request it if not
+     * @param activity - MainActivity for context
+     */
     private void requestWritePermission(final Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             ActivityCompat.requestPermissions(activity, new String[]{
@@ -73,6 +88,10 @@ public class RecordingController {
         }
     }
 
+    /**
+     * Check if microphone permission granded - or request it if not
+     * @param activity - MainActivity for context
+     */
     private void requestMicrophonePermission(final Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, android.Manifest.permission.RECORD_AUDIO)) {
             ActivityCompat.requestPermissions(activity, new String[]{

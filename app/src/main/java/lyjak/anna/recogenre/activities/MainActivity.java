@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre;
+package lyjak.anna.recogenre.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import lyjak.anna.recogenre.R;
 import lyjak.anna.recogenre.fragments.RecordFragment;
 
 public class MainActivity extends AppCompatActivity
