@@ -5,6 +5,6 @@
     <color name="colorAccent">#03dac5</color>
     <color name="colorAccentDark">#018786</color>
     <color name="colorError">#c51162</color>
-    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorBackground">#ffffff</color>
 
 </resources>
