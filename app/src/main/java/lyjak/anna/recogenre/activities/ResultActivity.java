@@ -2,12 +2,15 @@ package lyjak.anna.recogenre.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lyjak.anna.recogenre.R;
+import lyjak.anna.recogenre.adapters.ClassificationResultAdapter;
 import lyjak.anna.recogenre.model.ClassificationResult;
 
 public class ResultActivity extends AppCompatActivity {
@@ -22,11 +25,16 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         resultInfo = findViewById(R.id.textViewResult);
+        ListView resultList = findViewById(R.id.result_list_view);
+
         if (LIST_OF_RESULTS.isEmpty()) {
             setGenreName("Pop");
         } else {
             ClassificationResult result = LIST_OF_RESULTS.get(0);
             setGenreName(result.getGenre() + " (w " + result.getPred() +"%)");
+            ArrayAdapter<ClassificationResult> adapter =
+                    new ClassificationResultAdapter(this, LIST_OF_RESULTS);
+            resultList.setAdapter(adapter);
         }
     }
 
