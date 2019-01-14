@@ -21,4 +21,8 @@
     <string name="result_folk">Folk</string>
     <string name="result_vocal">Wokal</string>
     <string name="result_jazz">Jazz</string>
+
+    <string name="hello_blank_fragment">Aplikacja została zaimplentowana w oparciu o model
+        udostępniony na: https://github.com/keunwoochoi/music-auto_tagging-keras</string>
+
 </resources>
