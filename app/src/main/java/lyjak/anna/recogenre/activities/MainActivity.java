@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import lyjak.anna.recogenre.R;
+import lyjak.anna.recogenre.fragments.AboutFragment;
 import lyjak.anna.recogenre.fragments.RecordFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_info) {
-
+            fragment = AboutFragment.newInstance();
         }
 
         fragmentManager
