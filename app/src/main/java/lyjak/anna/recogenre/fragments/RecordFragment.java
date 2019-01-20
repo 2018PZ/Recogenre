@@ -32,6 +32,8 @@ import retrofit2.Response;
 
 public class RecordFragment extends Fragment {
 
+    private static final String TAG = RecordFragment.class.getName();
+
     private RippleBackground rippleBackground;
     private boolean animationOn = false;
     private RecordingController recordingController;
@@ -86,6 +88,7 @@ public class RecordFragment extends Fragment {
     }
 
     private void classifySong(final String filePath, final String fileName) {
+        Log.i(TAG, "Start classify Song");
         @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> asyncTask =
                 new AsyncTask<Void, Void, Void>() {
                     @Override
@@ -105,6 +108,7 @@ public class RecordFragment extends Fragment {
     }
 
     private void requestResult() {
+        Log.i(TAG, "Request Song result");
         /*Create handle for the RetrofitInstance interface*/
         GetClassificationService service = RetrofitClientInstance.getRetrofitInstance().
                 create(GetClassificationService.class);
