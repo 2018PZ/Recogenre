@@ -11,7 +11,7 @@ import java.util.List;
 
 import lyjak.anna.recogenre.R;
 import lyjak.anna.recogenre.adapters.ClassificationResultAdapter;
-import lyjak.anna.recogenre.model.ClassificationResult;
+import lyjak.anna.recogenre.model.retrofit.ClassificationResult;
 
 public class ResultActivity extends AppCompatActivity {
 

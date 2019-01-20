@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 import lyjak.anna.recogenre.R;
-import lyjak.anna.recogenre.model.ClassificationResult;
+import lyjak.anna.recogenre.model.retrofit.ClassificationResult;
 
 public class ClassificationResultAdapter extends ArrayAdapter<ClassificationResult> {
 

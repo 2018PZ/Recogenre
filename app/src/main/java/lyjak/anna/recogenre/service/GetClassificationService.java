@@ -2,7 +2,7 @@ package lyjak.anna.recogenre.service;
 
 import java.util.List;
 
-import lyjak.anna.recogenre.model.ClassificationResult;
+import lyjak.anna.recogenre.model.retrofit.ClassificationResult;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

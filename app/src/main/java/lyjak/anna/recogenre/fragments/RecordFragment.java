@@ -21,7 +21,7 @@ import java.util.Objects;
 
 import lyjak.anna.recogenre.R;
 import lyjak.anna.recogenre.activities.ResultActivity;
-import lyjak.anna.recogenre.model.ClassificationResult;
+import lyjak.anna.recogenre.model.retrofit.ClassificationResult;
 import lyjak.anna.recogenre.recording.RecordingController;
 import lyjak.anna.recogenre.service.GetClassificationService;
 import lyjak.anna.recogenre.service.RetrofitClientInstance;

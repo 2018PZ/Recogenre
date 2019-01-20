@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre.model;
+package lyjak.anna.recogenre.model.retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
