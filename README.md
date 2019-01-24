@@ -1,6 +1,6 @@
 # RecoGenre – mobile app
 
-The following project was implemented as part of the project "Stream Data Processing" (pl. „Przetwarzanie danych strumieniowych”) at the Wrocław University of Technology.
+The following project was implemented as part of the project "Stream Data Processing" (pl. „Przetwarzanie danych strumieniowych”) at the Wrocław University of Science and Technology.
 In this repository you can find a mobile application made for the Android platform.
 
 ## Getting Started
