@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Clone this repository and import into Android Studio or you could install app using apk file stored [here](https://github.com/2018PZ/Recogenre/tree/master/app/release). Actuall release info also stored at this directory in [file](https://github.com/2018PZ/Recogenre/blob/master/app/release/output.json).
+Clone this repository and import into Android Studio or you could install app using apk file stored [here](https://github.com/2018PZ/Recogenre/tree/master/app/release). Actual release info (also) stored at this directory in [file](https://github.com/2018PZ/Recogenre/blob/master/app/release/output.json).
 
 When app's recording music - should look like:
 
