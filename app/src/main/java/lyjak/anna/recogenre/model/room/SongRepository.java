@@ -14,20 +14,20 @@ public class SongRepository {
     private SongDAO mSongDao;
     private LiveData<List<Song>> mAllSongs;
 
-    SongRepository(Application application) {
+    public SongRepository(Application application) {
         AppRoomDatabase db = AppRoomDatabase.getDatabase(application);
         mSongDao = db.songDAO;
         mAllSongs = mSongDao.getAllSongs();
     }
 
-    LiveData<List<Song>> getAllSongs() {
+    public LiveData<List<Song>> getAllSongs() {
         return mAllSongs;
     }
-
 
     public void insert(Song song) {
         new insertAsyncTask(mSongDao).execute(song);
     }
+
 
     private static class insertAsyncTask extends AsyncTask<Song, Void, Void> {
 

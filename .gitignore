@@ -9,4 +9,4 @@
 /build
 /captures
 .externalNativeBuild
-/app/src/main/java/lyjak/anna/recogenre/service/Credentials.java
+/app/src/main/java/lyjak/anna/recogenre/services/ssh/Credentials.java

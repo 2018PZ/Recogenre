@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.RecordFragment"
+    tools:context=".view.fragments.RecordFragment"
     android:background="@drawable/gradient_2">
 
     <com.skyfishjy.library.RippleBackground

@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre.recording;
+package lyjak.anna.recogenre.services.recording;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,7 +15,7 @@ import android.view.View;
 import java.io.File;
 import java.io.IOException;
 
-import lyjak.anna.recogenre.activities.MainActivity;
+import lyjak.anna.recogenre.view.activities.MainActivity;
 
 public class RecordingController {
 

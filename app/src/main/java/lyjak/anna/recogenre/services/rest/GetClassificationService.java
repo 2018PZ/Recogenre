@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre.service;
+package lyjak.anna.recogenre.services.rest;
 
 import java.util.List;
 

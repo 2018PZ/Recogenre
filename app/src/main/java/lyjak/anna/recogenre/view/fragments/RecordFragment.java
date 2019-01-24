@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre.fragments;
+package lyjak.anna.recogenre.view.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Objects;
 
 import lyjak.anna.recogenre.R;
-import lyjak.anna.recogenre.activities.ResultActivity;
+import lyjak.anna.recogenre.view.activities.ResultActivity;
 import lyjak.anna.recogenre.model.retrofit.ClassificationResult;
-import lyjak.anna.recogenre.recording.RecordingController;
-import lyjak.anna.recogenre.service.GetClassificationService;
-import lyjak.anna.recogenre.service.RetrofitClientInstance;
-import lyjak.anna.recogenre.service.SSHConnectionService;
+import lyjak.anna.recogenre.services.recording.RecordingController;
+import lyjak.anna.recogenre.services.rest.GetClassificationService;
+import lyjak.anna.recogenre.services.rest.RetrofitClientInstance;
+import lyjak.anna.recogenre.services.ssh.SSHConnectionService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

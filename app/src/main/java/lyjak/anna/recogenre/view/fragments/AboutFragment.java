@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre.fragments;
+package lyjak.anna.recogenre.view.fragments;
 
 
 import android.os.Bundle;

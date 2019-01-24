@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre.activities;
+package lyjak.anna.recogenre.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lyjak.anna.recogenre.R;
-import lyjak.anna.recogenre.adapters.ClassificationResultAdapter;
+import lyjak.anna.recogenre.view.adapters.ClassificationResultAdapter;
 import lyjak.anna.recogenre.model.retrofit.ClassificationResult;
 
 public class ResultActivity extends AppCompatActivity {

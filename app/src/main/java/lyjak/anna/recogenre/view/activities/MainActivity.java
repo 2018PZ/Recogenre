@@ -1,4 +1,4 @@
-package lyjak.anna.recogenre.activities;
+package lyjak.anna.recogenre.view.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import lyjak.anna.recogenre.R;
-import lyjak.anna.recogenre.fragments.AboutFragment;
-import lyjak.anna.recogenre.fragments.RecordFragment;
+import lyjak.anna.recogenre.view.fragments.AboutFragment;
+import lyjak.anna.recogenre.view.fragments.HistoryFragment;
+import lyjak.anna.recogenre.view.fragments.RecordFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_music_record) {
             fragment = RecordFragment.newInstance();
         } else if (id == R.id.nav_history) {
-
+            fragment = HistoryFragment.newInstance();
         } else if (id == R.id.nav_info) {
             fragment = AboutFragment.newInstance();
         }
